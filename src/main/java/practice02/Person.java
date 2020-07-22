@@ -8,7 +8,15 @@ public class Person {
         this.name = name;
         this.age = age;
     }
-    public void selfIntroduce(){
-        System.out.println("My name is " + this.name + ". I am "+ this.name + " years old.");
+    public String introduce(){
+        return "My name is " + this.name + ". I am "+ this.age + " years old.";
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
     }
 }
