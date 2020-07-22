@@ -37,7 +37,7 @@ public class Person {
         if(this == obj) {
             return true;
         }
-        if(this.getClass() != obj.getClass()){
+        if(obj == null || this.getClass() != obj.getClass()){
             return false;
         }
         Person person = (Person)obj;
