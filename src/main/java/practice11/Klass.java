@@ -8,7 +8,7 @@ public class Klass {
     private String displayName;
     private Student leader;
     private ArrayList<Student> studentList = new ArrayList<>();
-    private ArrayList<Teacher> teacherList = new ArrayList<>();
+    private ArrayList<TeacherObserver> observerList = new ArrayList<>();
     public Klass(int number) {
         this.number = number;
         this.displayName = "Class " + number;
@@ -34,8 +34,8 @@ public class Klass {
     public void assignLeader(Student student){
         if(this.isIn(student)) {
             student.getKlass().setLeader(student);
-            for(Teacher teacher : teacherList){
-                teacher.printGetSetLeaderMessage(student,this);
+            for(TeacherObserver teacherObserver : observerList){
+                teacherObserver.printGetSetLeaderMessage(student,this);
             }
         }else {
             System.out.print("It is not one of us.\n");
@@ -43,14 +43,14 @@ public class Klass {
     }
     public void appendMember(Student student) {
         studentList.add(student);
-        for(Teacher teacher : teacherList){
-            teacher.printGetJoinMessage(student,this);
+        for(TeacherObserver teacherObserver : observerList){
+            teacherObserver.printGetJoinMessage(student,this);
         }
     }
     public boolean isIn(Student student) {
         return studentList.contains(student);
     }
-    public void addTeacher(Teacher teacher){
-        this.teacherList.add(teacher);
+    public void addTeacher(Teacher teacher) {
+        this.observerList.add(teacher);
     }
 }

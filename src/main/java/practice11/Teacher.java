@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Teacher extends Person{
+public class Teacher extends Person implements TeacherObserver{
     private LinkedList<Klass> classes;
     public Teacher(int id ,String name, int age,LinkedList<Klass> classes) {
         super(id,name, age);
@@ -24,7 +24,7 @@ public class Teacher extends Person{
             return super.introduce() + " I am a Teacher. I teach No Class.";
         }
         String classNumStr = "";
-        for(Klass klass : this.classes){
+        for(Klass klass : this.classes){//todo
             classNumStr += klass.getNumber() + ", ";
         }
         return super.introduce() + " I am a Teacher. I teach Class " +
@@ -35,10 +35,9 @@ public class Teacher extends Person{
         for(Klass klass : classes){
             classNumList.add(klass.getNumber());
         }
-        return classNumList.contains(student.getKlass().getNumber()) ? true:false;
+        return classNumList.contains(student.getKlass().getNumber());
     }
     public String introduceWith(Student student){
-//        String teacherIntroductionWith = this.getKlass().getNumber() == student.getKlass().getNumber() ? "" : " don't";
         String teacherIntroductionWith = isTeaching(student) ? "" : " don't";
         return getIntroductionTemplete(teacherIntroductionWith,student.getName());
     }
@@ -52,9 +51,11 @@ public class Teacher extends Person{
     public void setClasses(LinkedList<Klass> classes) {
         this.classes = classes;
     }
+    @Override
     public void printGetJoinMessage(Student student ,Klass klass){
         System.out.print("I am " + this.name + ". I know " + student.getName() + " has joined Class " + klass.getNumber() + ".\n");
     }
+    @Override
     public void printGetSetLeaderMessage(Student student,Klass klass){
         System.out.print("I am " + this.name + ". I know " + student.getName() + " become Leader of Class " + klass.getNumber() + ".\n");
     }
