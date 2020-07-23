@@ -10,6 +10,9 @@ public class Teacher extends Person{
     public Teacher(int id ,String name, int age,LinkedList<Klass> classes) {
         super(id,name, age);
         this.classes = classes;
+        for(Klass klass : classes){
+            klass.addTeacher(this);
+        }
     }
     public Teacher(int id ,String name, int age) {
         super(id,name,age);
@@ -48,5 +51,11 @@ public class Teacher extends Person{
     }
     public void setClasses(LinkedList<Klass> classes) {
         this.classes = classes;
+    }
+    public void printGetJoinMessage(Student student ,Klass klass){
+        System.out.print("I am " + this.name + ". I know " + student.getName() + " has joined Class " + klass.getNumber() + ".\n");
+    }
+    public void printGetSetLeaderMessage(Student student,Klass klass){
+        System.out.print("I am " + this.name + ". I know " + student.getName() + " become Leader of Class " + klass.getNumber() + ".\n");
     }
 }
