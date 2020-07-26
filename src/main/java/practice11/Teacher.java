@@ -4,6 +4,7 @@ package practice11;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Teacher extends Person implements TeacherObserver{
     private LinkedList<Klass> classes;
@@ -21,21 +22,13 @@ public class Teacher extends Person implements TeacherObserver{
     @Override
     public String introduce() {
         if(this.classes.size() == 0){
-            return super.introduce() + " I am a Teacher. I teach No Class.";
+            return String.format("%s I am a Teacher. I teach No Class.", super.introduce());
         }
-        String classNumStr = "";
-        for(Klass klass : this.classes){//todo
-            classNumStr += klass.getNumber() + ", ";
-        }
-        return super.introduce() + " I am a Teacher. I teach Class " +
-                classNumStr.substring(0,classNumStr.length() - 2) + ".";
+        String classNumStr = classes.stream().map(n -> String.valueOf(n.getNumber())).collect(Collectors.joining(", "));
+        return String.format("%s I am a Teacher. I teach Class %s.", super.introduce(), classNumStr);
     }
     public boolean isTeaching(Student student){
-        List<Integer> classNumList = new ArrayList<>();
-        for(Klass klass : classes){
-            classNumList.add(klass.getNumber());
-        }
-        return classNumList.contains(student.getKlass().getNumber());
+        return classes.contains(student.getKlass());
     }
     public String introduceWith(Student student){
         String teacherIntroductionWith = isTeaching(student) ? "" : " don't";
@@ -43,7 +36,7 @@ public class Teacher extends Person implements TeacherObserver{
     }
 
     public String getIntroductionTemplete(String teacherIntroductionWith,String studentName){
-        return super.introduce() + " I am a Teacher. I" + teacherIntroductionWith + " teach " + studentName + ".";
+        return String.format("%s I am a Teacher. I%s teach %s.", super.introduce(), teacherIntroductionWith, studentName);
     }
     public LinkedList<Klass> getClasses() {
         return classes;
@@ -53,10 +46,10 @@ public class Teacher extends Person implements TeacherObserver{
     }
     @Override
     public void printGetJoinMessage(Student student ,Klass klass){
-        System.out.print("I am " + this.name + ". I know " + student.getName() + " has joined Class " + klass.getNumber() + ".\n");
+        System.out.print(new StringBuilder().append("I am ").append(this.name).append(". I know ").append(student.getName()).append(" has joined Class ").append(klass.getNumber()).append(".\n").toString());
     }
     @Override
     public void printGetSetLeaderMessage(Student student,Klass klass){
-        System.out.print("I am " + this.name + ". I know " + student.getName() + " become Leader of Class " + klass.getNumber() + ".\n");
+        System.out.printf("I am %s. I know %s become Leader of Class %d.\n", this.name, student.getName(), klass.getNumber());
     }
 }

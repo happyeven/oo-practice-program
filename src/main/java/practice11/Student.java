@@ -11,10 +11,10 @@ public class Student extends Person{
     @Override
     public String introduce() {
         Student leader = this.klass.getLeader();
-        String leaderString = leader != null && leader.getName() == this.getName() ? "I am Leader of Class " +
-                this.getKlass().getNumber() + "." : "I am at Class " +
-                this.klass.getNumber() +".";
-        return super.introduce() + " I am a Student. " + leaderString;
+        String leaderString = leader != null && leader.getName() == this.getName() ?
+                String.format("I am Leader of Class %d.", this.getKlass().getNumber())
+                : String.format("I am at Class %d.", this.klass.getNumber());
+        return String.format("%s I am a Student. %s", super.introduce(), leaderString);
     }
     public Klass getKlass() {
         return klass;

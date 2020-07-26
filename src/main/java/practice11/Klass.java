@@ -7,7 +7,6 @@ public class Klass {
     private int number;
     private String displayName;
     private Student leader;
-    private ArrayList<Student> studentList = new ArrayList<>();
     private ArrayList<TeacherObserver> observerList = new ArrayList<>();
     public Klass(int number) {
         this.number = number;
@@ -42,13 +41,13 @@ public class Klass {
         }
     }
     public void appendMember(Student student) {
-        studentList.add(student);
+        student.setKlass(this);
         for(TeacherObserver teacherObserver : observerList){
             teacherObserver.printGetJoinMessage(student,this);
         }
     }
     public boolean isIn(Student student) {
-        return studentList.contains(student);
+        return student.getKlass() == this;
     }
     public void addTeacher(Teacher teacher) {
         this.observerList.add(teacher);
