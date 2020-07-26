@@ -28,14 +28,9 @@ public class Teacher extends Person{
                 classNumStr.substring(0,classNumStr.length() - 2) + ".";
     }
     public boolean isTeaching(Student student){
-        List<Integer> classNumList = new ArrayList<>();
-        for(Klass klass : classes){
-            classNumList.add(klass.getNumber());
-        }
-        return classNumList.contains(student.getKlass().getNumber()) ? true:false;
+        return classes.contains(student.getKlass());
     }
     public String introduceWith(Student student){
-//        String teacherIntroductionWith = this.getKlass().getNumber() == student.getKlass().getNumber() ? "" : " don't";
         String teacherIntroductionWith = isTeaching(student) ? "" : " don't";
         return getIntroductionTemplete(teacherIntroductionWith,student.getName());
     }
