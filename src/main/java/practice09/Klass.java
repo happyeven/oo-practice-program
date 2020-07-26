@@ -38,9 +38,9 @@ public class Klass {
         }
     }
     public void appendMember(Student student) {
-        studentList.add(student);
+        student.setKlass(this);
     }
     public boolean isInKlass(Student student) {
-        return studentList.contains(student);
+        return student.getKlass() == this;
     }
 }
